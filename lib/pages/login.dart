@@ -10,6 +10,23 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(child: Center(child: Text('Login Page'))));
+    return Scaffold(body: Column(children: <Widget>[_Logo()]));
+  }
+}
+
+class _Logo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Image(
+              image: AssetImage('assets/imgs/logo.jpg'),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
