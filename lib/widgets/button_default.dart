@@ -14,14 +14,14 @@ class ButtonDefault extends StatelessWidget {
         height: 50,
         width: double.infinity,
         child: Center(
-          child: Text('Ingresar',
+          child: Text(this.text,
               style: TextStyle(color: Colors.white, fontSize: 18)),
         ),
       ),
       highlightElevation: 5,
       color: Color.fromRGBO(52, 152, 219, 1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      onPressed: () {},
+      onPressed: this.onPressed,
     );
   }
 }

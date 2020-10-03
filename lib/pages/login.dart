@@ -15,13 +15,15 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Container(
       color: Color.fromRGBO(236, 240, 241, 1),
       padding: EdgeInsets.only(top: 50, right: 30, left: 30, bottom: 50),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[Logo(), _Form(), Labels()]),
-    ));
+    ))));
   }
 }
 
@@ -51,7 +53,9 @@ class __FormState extends State<_Form> {
               isPassword: true),
           ButtonDefault(
             text: 'Ingresar',
-            onPressed: () => {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
           )
         ],
       ),
