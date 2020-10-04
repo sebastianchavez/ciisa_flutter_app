@@ -17,13 +17,15 @@ class _LoginState extends State<Login> {
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Container(
-      color: Color.fromRGBO(236, 240, 241, 1),
-      padding: EdgeInsets.only(top: 50, right: 30, left: 30, bottom: 50),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Logo(), _Form(), Labels()]),
-    ))));
+                  color: Color.fromRGBO(236, 240, 241, 1),
+                  padding:
+                      EdgeInsets.only(top: 50, right: 30, left: 30, bottom: 50),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[Logo(), _Form(), Labels()]),
+                ))));
   }
 }
 
