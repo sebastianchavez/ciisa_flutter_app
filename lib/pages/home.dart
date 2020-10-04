@@ -17,23 +17,7 @@ class _HomeState extends State<Home> {
   );
 
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -142,17 +126,26 @@ class _Banner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage('assets/imgs/banner.jpg')),
-          borderRadius: BorderRadius.circular(15)),
-      child: Center(
-        child: Text(
-          'Noticias destacadas',
-          style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+    return RaisedButton(
+      onPressed: () {
+        Navigator.pushNamed(context, '/detail');
+      },
+      padding: EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10), topLeft: Radius.circular(10))),
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover, image: AssetImage('assets/imgs/banner.jpg')),
+            borderRadius: BorderRadius.circular(15)),
+        child: Center(
+          child: Text(
+            'Noticias destacadas',
+            style: TextStyle(
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

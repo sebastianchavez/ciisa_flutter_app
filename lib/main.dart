@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingenieria_flutter/pages/detail.dart';
 import 'package:ingenieria_flutter/pages/home.dart';
 import 'package:ingenieria_flutter/pages/login.dart';
 
@@ -12,7 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       initialRoute: '/login',
-      routes: {'/login': (_) => Login(), '/home': (_) => Home()},
+      routes: {
+        '/login': (_) => Login(),
+        '/home': (_) => Home(),
+        '/detail': (_) => Detail()
+      },
     );
   }
 }
