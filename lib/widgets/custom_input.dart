@@ -24,7 +24,6 @@ class CustomInput extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
-          // border: Border.all(color: Color.fromRGBO(164, 176, 190, 1)),
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: Colors.black.withOpacity(0.3),
