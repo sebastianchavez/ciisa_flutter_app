@@ -40,9 +40,11 @@ class _HomeState extends State<Home> {
         ),
         centerTitle: true,
         actions: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 20),
-            child: Center(child: svg),
+          IconButton(
+            icon: svg,
+            onPressed: () {
+              Navigator.pushNamed(context, '/config');
+            },
           )
         ],
       ),
