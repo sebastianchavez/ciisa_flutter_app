@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ingenieria_flutter/widgets/button_default.dart';
 import 'package:ingenieria_flutter/widgets/text_input.dart';
 
-class ChangePassword extends StatelessWidget {
+class RecoveryPass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    final _controllerPassword = TextEditingController();
+    final _controllerEmail = TextEditingController();
 
-    final passwordBox = Container(
+    final emailBox = Container(
       margin: EdgeInsets.all(20.0),
       padding: EdgeInsets.only(top: 93.0),
       child: ListView(
@@ -17,15 +17,15 @@ class ChangePassword extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(bottom: 70.0),
             child: TextInput(
-              hintText: "Nueva contraseña",
+              hintText: "Email",
               inputType: null,
               maxLines: 1,
-              controller: _controllerPassword,
+              controller: _controllerEmail,
             ),
           ),
 
           ButtonDefault(
-            text: 'Cambiar contraseña',
+            text: 'Recuperar contraseña',
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/home');
             },
@@ -36,7 +36,7 @@ class ChangePassword extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          passwordBox,
+          emailBox,
         ],
       ),
     );
