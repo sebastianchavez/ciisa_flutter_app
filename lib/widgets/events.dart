@@ -13,52 +13,57 @@ class Events extends StatelessWidget {
     // TODO: implement build
 
     final dayBox = Container(
-      margin: EdgeInsets.only(left: 20.0),
+      margin: EdgeInsets.only(top: 20.0, left: 25.0),
       child: Text(
         day,
         textAlign: TextAlign.left,
         style: TextStyle(
-            fontFamily: "Lato", fontSize: 13.0, fontWeight: FontWeight.w900),
+            fontSize: 40.0,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFFFFFFFF)),
       ),
     );
 
     final titleBox = Container(
-      margin: EdgeInsets.only(left: 20.0),
+      margin: EdgeInsets.only(top: 20.0),
       child: Text(
         title,
         textAlign: TextAlign.left,
-        style: TextStyle(
-            fontFamily: "Lato", fontSize: 13.0, color: Color(0xFFa3a5a7)),
+        style: TextStyle(fontSize: 20.0, color: Color(0xFFFFFFFF)),
       ),
     );
 
     final dateBox = Container(
-      margin: EdgeInsets.only(left: 20.0),
+      margin: EdgeInsets.only(left: 20.0, bottom: 20.0),
       child: Text(
         date,
         textAlign: TextAlign.left,
-        style: TextStyle(fontFamily: "Lato", fontSize: 17.0),
+        style: TextStyle(fontSize: 16.0, color: Color(0xFFFFFFFF)),
       ),
     );
 
     final hourBox = Container(
-      margin: EdgeInsets.only(left: 20.0),
+      margin: EdgeInsets.only(left: 20.0, bottom: 20.0),
       child: Text(
         hour,
         textAlign: TextAlign.left,
-        style: TextStyle(fontFamily: "Lato", fontSize: 17.0),
+        style: TextStyle(fontSize: 16.0, color: Color(0xFFFFFFFF)),
       ),
     );
 
     final finalCard = Row(
-      //crossAxisAlignment: CrossAxisAlignment.start,
-      //children: <Widget>[userName, userInfo, userComment],
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      //decoration: BoxDecoration(color: Colors.green),
       children: <Widget>[
         dayBox,
         Column(
             //
-            children: <Widget>[
+            children: [
               titleBox,
+              SizedBox(
+                height: 10.0,
+              ),
               Row(
                 children: [dateBox, hourBox],
               )
@@ -66,8 +71,19 @@ class Events extends StatelessWidget {
       ],
     );
 
-    return Row(
-      children: <Widget>[finalCard],
+    final rialCard = Container(
+      //
+      margin: EdgeInsets.only(top: 45.0, left: 20.0, right: 20.0),
+      decoration: BoxDecoration(
+        //
+        color: Color(0xFF16a085),
+        //
+        borderRadius: BorderRadius.circular(10),
+      ),
+
+      child: finalCard,
     );
+
+    return rialCard;
   }
 }
