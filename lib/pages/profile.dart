@@ -29,88 +29,6 @@ class Profile extends StatelessWidget {
           image: DecorationImage(image: AssetImage(pathImage))),
     );
 
-    final boxFirstName = Container(
-      margin: EdgeInsets.only(top: 20, left: 20.0),
-      child: Text(
-        first_name,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 17.0, color: Colors.black, backgroundColor: Colors.white),
-      ),
-    );
-
-    final boxSecondName = Container(
-      margin: EdgeInsets.only(top: 20, left: 20.0),
-      child: Text(
-        second_name,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 17.0, color: Colors.black, backgroundColor: Colors.white),
-      ),
-    );
-
-    final boxEmail = Container(
-      margin: EdgeInsets.only(top: 20, left: 20.0),
-      child: Text(
-        email,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 17.0, color: Colors.black, backgroundColor: Colors.white),
-      ),
-    );
-
-    final boxEmail2 = ListView(
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            TextField(
-              maxLengthEnforced: false,
-              maxLines: null,
-              controller: _textController,
-              decoration: new InputDecoration(hintText: "Add info 1"),
-            ),
-            TextField(
-              maxLengthEnforced: false,
-              maxLines: null,
-              controller: _textController,
-              decoration: new InputDecoration(hintText: "Add info 1"),
-            ),
-          ],
-        ),
-      ],
-    );
-
-    final forum = Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: "Email",
-            ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return "Porfavor entra un email";
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  //process data
-                }
-              },
-              child: Text("Submit"),
-            ),
-          )
-        ],
-      ),
-    );
-
     final emailBox = Container(
       margin: EdgeInsets.all(20.0),
       padding: EdgeInsets.only(top: 220.0),
@@ -157,45 +75,8 @@ class Profile extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          /*
-          Row(
-            children: <Widget>[
-              Flexible(
-                  child: Container(
-                padding: EdgeInsets.only(top: 45.0, left: 20.0, right: 10.0),
-              ))
-              //
-            ],
-            //
-          ),*/
           photo,
           emailBox,
-
-          /*
-        Column(
-          children: [emailBox],
-        ),*/
-          /*
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          //mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [photo, emailBox],
-        ),*/
-          /*
-        SingleChildScrollView(
-          child: Container(
-            alignment: Alignment.topCenter,
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * .35,
-                right: 20.0,
-                left: 20.0),
-            child: Column(
-              children: <Widget>[emailBox],
-            ),
-          ),
-        )
-        */
         ],
       ),
     );
