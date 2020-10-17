@@ -69,16 +69,23 @@ class __FormState extends State<_Form> {
                     try {
                       final response = await authService.login(
                           rutCtrl.text, passwordCtrl.text);
-                      if (response) {
+                      print('response: ${response}');
+                      if (response.ok) {
                         Navigator.pushReplacementNamed(context, '/home');
                       } else {
-                        // Mostrar alerta
+                        String message = response.message.length > 0
+                            ? response.message
+                            : 'Existen problemas, intentar más tarde';
 
-                        showAlert(context, 'Queo la caga', 'la cagaste po ctm');
+                        showAlert(context, 'Problemas al autenticar', message);
                       }
                     } catch (e) {
-                      print('Error: ${e}');
-                      showAlert(context, 'Queo la caga', 'la cagaste po ctm');
+                      print('catch error: ${e}');
+                      // String message = e.message
+                      //     ? e.message
+                      //     : 'Existen problemas, intentar más tarde';
+                      // print('Error: ${e}');
+                      // showAlert(context, 'Error en autenticación', message);
                     }
                   },
           ),
