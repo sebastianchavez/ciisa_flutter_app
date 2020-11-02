@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ingenieria_flutter/widgets/button_default.dart';
 import 'package:ingenieria_flutter/widgets/text_input.dart';
 
-class RecoveryPass extends StatelessWidget {
+class RecoveryPassPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget svg = SvgPicture.asset(
@@ -41,7 +41,7 @@ class RecoveryPass extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(39, 174, 96, 1),
-        title: Text('Comentarios'),
+        title: Text('Recuperar Contraseña'),
         leading: IconButton(
           padding: EdgeInsets.all(15),
           icon: svg,

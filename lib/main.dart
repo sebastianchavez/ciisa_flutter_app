@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ingenieria_flutter/pages/calendar.dart';
-import 'package:ingenieria_flutter/pages/change_password.dart';
-import 'package:ingenieria_flutter/pages/comentary.dart';
-import 'package:ingenieria_flutter/pages/config.dart';
-import 'package:ingenieria_flutter/pages/detail.dart';
-import 'package:ingenieria_flutter/pages/home.dart';
-import 'package:ingenieria_flutter/pages/login.dart';
-import 'package:ingenieria_flutter/pages/next_events.dart';
-import 'package:ingenieria_flutter/pages/profile.dart';
-import 'package:ingenieria_flutter/pages/recovery_pass.dart';
+import 'package:ingenieria_flutter/pages/calendar_page.dart';
+import 'package:ingenieria_flutter/pages/change_password_page.dart';
+import 'package:ingenieria_flutter/pages/comentary_page.dart';
+import 'package:ingenieria_flutter/pages/config_page.dart';
+import 'package:ingenieria_flutter/pages/detail_page.dart';
+import 'package:ingenieria_flutter/pages/home_page.dart';
+import 'package:ingenieria_flutter/pages/loading_page.dart';
+import 'package:ingenieria_flutter/pages/login_page.dart';
+import 'package:ingenieria_flutter/pages/next_events_page.dart';
+import 'package:ingenieria_flutter/pages/profile_page.dart';
+import 'package:ingenieria_flutter/pages/recovery_pass_page.dart';
 import 'package:ingenieria_flutter/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -23,18 +24,19 @@ class MyApp extends StatelessWidget {
       providers: [ChangeNotifierProvider(create: (_) => AuthService())],
       child: MaterialApp(
         title: 'Material App',
-        initialRoute: '/login',
+        initialRoute: '/loading',
         routes: {
-          '/login': (_) => Login(),
-          '/home': (_) => Home(),
-          '/detail': (_) => Detail(),
-          '/comentary': (_) => Comentary(),
-          '/config': (_) => Config(),
-          '/calendar': (_) => Calendar(),
-          '/change-password': (_) => ChangePassword(),
-          '/next-events': (_) => NextEvents(),
-          '/profile': (_) => Profile(),
-          '/recovery-pass': (_) => RecoveryPass()
+          '/loading': (_) => LoadingPage(),
+          '/login': (_) => LoginPage(),
+          '/home': (_) => HomePage(),
+          '/detail': (_) => DetailPage(),
+          '/comentary': (_) => ComentaryPage(),
+          '/config': (_) => ConfigPage(),
+          '/calendar': (_) => CalendarPage(),
+          '/change-password': (_) => ChangePasswordPage(),
+          '/next-events': (_) => NextEventsPage(),
+          '/profile': (_) => ProfilePage(),
+          '/recovery-pass': (_) => RecoveryPassPage()
         },
       ),
     );

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ingenieria_flutter/widgets/card_comentary.dart';
 
-class Comentary extends StatefulWidget {
-  Comentary({Key key}) : super(key: key);
+class ComentaryPage extends StatefulWidget {
+  ComentaryPage({Key key}) : super(key: key);
 
   @override
   _ComentaryState createState() => _ComentaryState();
 }
 
-class _ComentaryState extends State<Comentary> {
+class _ComentaryState extends State<ComentaryPage> {
   final Widget svg = SvgPicture.asset(
     'assets/icons/back.svg',
     height: 40,

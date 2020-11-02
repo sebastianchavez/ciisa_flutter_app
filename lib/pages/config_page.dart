@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ingenieria_flutter/widgets/button_default.dart';
 
-class Config extends StatefulWidget {
-  Config({Key key}) : super(key: key);
+class ConfigPage extends StatefulWidget {
+  ConfigPage({Key key}) : super(key: key);
 
   @override
   _ConfigState createState() => _ConfigState();
 }
 
-class _ConfigState extends State<Config> {
+class _ConfigState extends State<ConfigPage> {
   final Widget svg = SvgPicture.asset(
     'assets/icons/back.svg',
     height: 40,

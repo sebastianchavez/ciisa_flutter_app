@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+/*****  Providers *****/
+import 'package:ingenieria_flutter/providers/push_notification_provider.dart';
+
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<HomePage> {
+  final _storage = new FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    final pushProvider = new PushNotificationsProvider();
+    pushProvider.initNotifications();
+  }
+
   final Widget svg = SvgPicture.asset(
     'assets/icons/config.svg',
     height: 40,

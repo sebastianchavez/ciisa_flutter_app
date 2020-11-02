@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ingenieria_flutter/widgets/button_default.dart';
 import 'package:ingenieria_flutter/widgets/text_input.dart';
 
-class ChangePassword extends StatelessWidget {
+class ChangePasswordPage extends StatelessWidget {
   final Widget svg = SvgPicture.asset(
     'assets/icons/back.svg',
     height: 40,

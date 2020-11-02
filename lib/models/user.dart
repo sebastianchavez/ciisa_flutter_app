@@ -14,6 +14,8 @@ class User {
     this.accessToken,
     this.email,
     this.name,
+    this.lastname,
+    this.career,
     this.profileImage,
     this.id,
   });
@@ -22,6 +24,8 @@ class User {
   String accessToken;
   String email;
   String name;
+  String lastname;
+  String career;
   String profileImage;
   String id;
 
@@ -30,6 +34,8 @@ class User {
         accessToken: json["accessToken"],
         email: json["email"],
         name: json["name"],
+        lastname: json["lastname"],
+        career: json["career"],
         profileImage: json["profileImage"],
         id: json["_id"],
       );
@@ -39,6 +45,8 @@ class User {
         "accessToken": accessToken,
         "email": email,
         "name": name,
+        "lastname": lastname,
+        "career": career,
         "profileImage": profileImage,
         "_id": id,
       };

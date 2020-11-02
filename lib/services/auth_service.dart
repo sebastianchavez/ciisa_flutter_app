@@ -30,24 +30,23 @@ class AuthService with ChangeNotifier {
   }
 
   Future<DefaultResponse> login(String rut, String password) async {
-    this.auth = true;
-
     final data = {'rut': rut.trim(), 'password': password.trim()};
 
     final resp = await http.put('${Environment.apiUrl}/users/login',
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
 
-    this.auth = false;
     print('Response: ${resp.body}');
     final response = responseFromJson(resp.body);
     if (resp.statusCode == 200) {
       this.user = userFromJson(resp.body);
       // TODO: Guardar token y datos de usuario
 
+      await this._saveUser(this.user);
       await this._saveToken(this.user.accessToken);
 
       response.data = [this.user];
       response.message = 'Exito';
+      response.ok = true;
       return response;
     } else {
       response.ok = false;
@@ -61,5 +60,29 @@ class AuthService with ChangeNotifier {
 
   Future logOut() async {
     await _storage.deleteAll();
+  }
+
+  Future isLoggedIn() async {
+    try {
+      String accessToken = await _storage.read(key: 'token');
+      if (accessToken != '') {
+        final resp = await http.get('${Environment.apiUrl}/users/accessToken',
+            headers: {'Authorization': 'Bearer ${accessToken}'});
+        if (resp.statusCode == 200) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Catch error: ${e}');
+      return false;
+    }
+  }
+
+  Future _saveUser(User user) async {
+    await _storage.write(key: 'currentUser', value: user.toString());
   }
 }

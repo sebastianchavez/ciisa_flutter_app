@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 // Example holidays
@@ -12,8 +11,8 @@ final Map<DateTime, List> _holidays = {
   DateTime(2019, 4, 22): ['Easter Monday'],
 };
 
-class Calendar extends StatefulWidget {
-  Calendar({Key key, this.title}) : super(key: key);
+class CalendarPage extends StatefulWidget {
+  CalendarPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -21,7 +20,7 @@ class Calendar extends StatefulWidget {
   _CalendarState createState() => _CalendarState();
 }
 
-class _CalendarState extends State<Calendar> with TickerProviderStateMixin {
+class _CalendarState extends State<CalendarPage> with TickerProviderStateMixin {
   Map<DateTime, List> _events;
   List _selectedEvents;
   AnimationController _animationController;
@@ -179,7 +178,7 @@ class _CalendarState extends State<Calendar> with TickerProviderStateMixin {
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
-      onDaySelected: _onDaySelected,
+      // onDaySelected: _onDaySelected,
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onCalendarCreated: _onCalendarCreated,
     );
@@ -268,10 +267,10 @@ class _CalendarState extends State<Calendar> with TickerProviderStateMixin {
           return children;
         },
       ),
-      onDaySelected: (date, events) {
-        _onDaySelected(date, events);
-        _animationController.forward(from: 0.0);
-      },
+      // onDaySelected: (date, events) {
+      //   _onDaySelected(date, events);
+      //   _animationController.forward(from: 0.0);
+      // },
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onCalendarCreated: _onCalendarCreated,
     );

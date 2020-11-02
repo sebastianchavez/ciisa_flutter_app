@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ingenieria_flutter/widgets/card_comentary.dart';
 
-class Detail extends StatefulWidget {
-  Detail({Key key}) : super(key: key);
+class DetailPage extends StatefulWidget {
+  DetailPage({Key key}) : super(key: key);
 
   @override
   _DetailState createState() => _DetailState();
 }
 
-class _DetailState extends State<Detail> {
+class _DetailState extends State<DetailPage> {
   final Widget svg = SvgPicture.asset(
     'assets/icons/back.svg',
     height: 40,

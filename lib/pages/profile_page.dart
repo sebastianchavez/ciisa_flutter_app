@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ingenieria_flutter/widgets/button_danger.dart';
 import 'package:ingenieria_flutter/widgets/button_default.dart';
 import 'package:ingenieria_flutter/widgets/labels.dart';
 import 'package:ingenieria_flutter/widgets/text_input.dart';
 
-class Profile extends StatefulWidget {
-  Profile({Key key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  ProfilePage({Key key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileState extends State<ProfilePage> {
   final Widget svg = SvgPicture.asset(
     'assets/icons/back.svg',
     height: 40,
@@ -106,7 +108,15 @@ class _FormProfile extends StatelessWidget {
           SizedBox(height: 30),
           Labels(
               onPressed: () => Navigator.pushNamed(context, '/change-password'),
-              text: 'Cambiar contraseña')
+              text: 'Cambiar contraseña'),
+          SizedBox(height: 30),
+          Labels(
+              text: 'Cerrar Sesion',
+              onPressed: () async {
+                final _storage = new FlutterSecureStorage();
+                await _storage.deleteAll();
+                Navigator.pushReplacementNamed(context, '/login');
+              })
         ],
       ),
     );
