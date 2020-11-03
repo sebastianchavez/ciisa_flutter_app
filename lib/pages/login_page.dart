@@ -67,76 +67,65 @@ class __FormState extends State<_Form> {
   final passwordCtrl = TextEditingController();
   FocusNode rutFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
-  bool rutIsValid = false;
-  bool passwordIsValid = false;
-  bool formSubmitted = false;
 
   @override
   void initState() {
     super.initState();
   }
 
-  reverseRut() {
-    rutCtrl.text = rutCtrl.text.split(".").join("").split("-").join("");
-  }
-
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+
+    validateRut(String value) {
+      int rutNumbers = int.parse(value.substring(0, value.length - 1));
+      String dv = value.substring(value.length - 1);
+      final result = RUTValidator(numbers: rutNumbers, dv: dv);
+      authService.rutIsValid = result.isValid;
+    }
+
+    validatePassword(String value) {
+      if (value.length > 5) {
+        authService.passwordIsValid = true;
+      } else {
+        authService.passwordIsValid = false;
+      }
+    }
+
+    formatterRut(value) {
+      if (rutFocus.hasFocus) {
+        if (rutCtrl.text.trim() != "") {
+          rutCtrl.text = rutCtrl.text.split(".").join("").split("-").join("");
+        }
+      } else {
+        rutCtrl.text = RUTValidator.formatFromText(rutCtrl.text);
+      }
+    }
 
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
           CustomInput(
-              // onFocusChange: () {
-              //   // Validación de rut
-              //   List rutDv = [];
-              //   int rutNumbers = 1;
-              //   String dv = "1";
-              //   print('onFocus');
-
-              //   // Evento focus en input
-              //   if (rutFocus.hasFocus) {
-              //     if (rutCtrl.text.trim() != "") {
-              //       rutCtrl.text = RUTValidator.formatFromText(rutCtrl.text);
-              //       rutDv = rutCtrl.text.split(".").join("").split("-");
-              //       rutNumbers = int.parse(rutDv[0]);
-              //       rutCtrl.text =
-              //           rutCtrl.text.split(".").join("").split("-").join("");
-              //     }
-              //   } else {
-              //     rutCtrl.text = RUTValidator.formatFromText(rutCtrl.text);
-              //     rutDv = rutCtrl.text.split(".").join("").split("-");
-              //     rutNumbers = int.parse(rutDv[0]);
-              //     dv = rutDv[1];
-              //   }
-              //   final result = RUTValidator(numbers: rutNumbers, dv: dv);
-              //   rutIsValid = result.isValid;
-              //   print(
-              //       "Focus rut ${rutFocus.hasFocus}, Result: ${result.isValid} , ${rutIsValid}, ${formSubmitted}");
-              // },
+              onChange: (_) => validateRut(_),
+              focusNode: rutFocus,
+              onFocusChange: (_) => formatterRut(_),
               icon: Icons.person_outline,
               placeholder: 'Rut',
               textController: rutCtrl),
-          (!rutIsValid && formSubmitted)
+          (!authService.rutIsValid && authService.loginSubmit)
               ? LabelError(text: "Rut inválido", onPressed: () => {})
               : SizedBox(height: 10),
           SizedBox(height: 10),
           CustomInput(
-              // onFocusChange: () {
-              //   if (passwordCtrl.text.length > 5) {
-              //     passwordIsValid = true;
-              //   } else {
-              //     passwordIsValid = false;
-              //   }
-              //   print("Focus password ${passwordFocus.hasFocus}");
-              // },
+              onChange: (_) => validatePassword(_),
+              focusNode: passwordFocus,
+              onFocusChange: (_) => {},
               icon: Icons.lock_outline,
               placeholder: 'Contraseña',
               textController: passwordCtrl,
               isPassword: true),
-          (!passwordIsValid && formSubmitted)
+          (!authService.passwordIsValid && authService.loginSubmit)
               ? LabelError(text: "Mínimo 6 caracteres", onPressed: () => {})
               : SizedBox(height: 10),
           SizedBox(height: 10),
@@ -147,8 +136,9 @@ class __FormState extends State<_Form> {
                 : () async {
                     FocusScope.of(context).unfocus();
                     try {
-                      formSubmitted = true;
-                      if (rutIsValid && passwordIsValid) {
+                      authService.loginSubmit = true;
+                      if (authService.rutIsValid &&
+                          authService.passwordIsValid) {
                         final String rut = rutCtrl.text
                             .split(".")
                             .join("")
@@ -164,7 +154,6 @@ class __FormState extends State<_Form> {
                           String message = response.message.length > 0
                               ? response.message
                               : 'Existen problemas, intentar más tarde';
-
                           showAlert(
                               context, 'Problemas al autenticar', message);
                         }

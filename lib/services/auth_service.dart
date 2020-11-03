@@ -10,11 +10,32 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AuthService with ChangeNotifier {
   User user;
   bool _auth = false;
+  bool _rutIsValid = false;
+  bool _passwordIsValid = false;
+  bool _loginSubmit = false;
   final _storage = new FlutterSecureStorage();
 
   bool get auth => this._auth;
   set auth(bool value) {
     this._auth = value;
+    notifyListeners();
+  }
+
+  bool get rutIsValid => this._rutIsValid;
+  set rutIsValid(bool value) {
+    this._rutIsValid = value;
+    notifyListeners();
+  }
+
+  bool get passwordIsValid => this._passwordIsValid;
+  set passwordIsValid(bool value) {
+    this._passwordIsValid = value;
+    notifyListeners();
+  }
+
+  bool get loginSubmit => this._loginSubmit;
+  set loginSubmit(bool value) {
+    this._loginSubmit = value;
     notifyListeners();
   }
 
@@ -30,7 +51,13 @@ class AuthService with ChangeNotifier {
   }
 
   Future<DefaultResponse> login(String rut, String password) async {
-    final data = {'rut': rut.trim(), 'password': password.trim()};
+    this._auth = true;
+    final firebaseToken = await _storage.read(key: 'firebaseToken');
+    final data = {
+      'rut': rut.trim(),
+      'password': password.trim(),
+      'firebaseToken': firebaseToken
+    };
 
     final resp = await http.put('${Environment.apiUrl}/users/login',
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
@@ -39,17 +66,17 @@ class AuthService with ChangeNotifier {
     final response = responseFromJson(resp.body);
     if (resp.statusCode == 200) {
       this.user = userFromJson(resp.body);
-      // TODO: Guardar token y datos de usuario
-
       await this._saveUser(this.user);
       await this._saveToken(this.user.accessToken);
 
       response.data = [this.user];
       response.message = 'Exito';
       response.ok = true;
+      this._auth = false;
       return response;
     } else {
       response.ok = false;
+      this._auth = false;
       return response;
     }
   }
