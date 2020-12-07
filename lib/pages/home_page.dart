@@ -6,6 +6,7 @@ import 'package:ingenieria_flutter/helpers/show_alert.dart';
 /*****  Providers *****/
 import 'package:ingenieria_flutter/providers/push_notification_provider.dart';
 import 'package:ingenieria_flutter/services/news_service.dart';
+import 'package:ingenieria_flutter/services/activities_service.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
@@ -69,6 +70,7 @@ class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final newsService = Provider.of<NewsService>(context, listen: false);
+    final activitiesService = Provider.of<ActivitiesService>(context, listen: false);
 
     return Scaffold(
         appBar: AppBar(
@@ -316,6 +318,95 @@ class _News extends StatelessWidget {
                         this.description.length >= 40
                             ? this.description.substring(0, 40)
                             : this.description,
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                  ],
+                ),
+              ),
+            )
+          ]),
+        ));
+  }
+}
+
+class _ActivitiesList extends StatelessWidget {
+  const _ActivitiesList({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+  }
+}
+
+class _Activities extends StatelessWidget {
+  final String title;
+  final String description;
+  final String date;
+  final String initialHour;
+  final String finishHour;
+  final data;
+
+  const _Activities(
+      {Key key,
+        @required this.title,
+        @required this.description,
+        @required this.date,
+        @required this.initialHour,
+        @required this.finishHour,
+        @required this.data})
+      : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    final activitiesService = Provider.of<ActivitiesService>(context);
+    return RaisedButton(
+        onPressed: () {
+          activitiesService.activities = this.data;
+          //Navigator.pushNamed(context, '/detail');
+        },
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Container(
+          height: 100,
+          padding: EdgeInsets.only(left: 10, right: 10),
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(22, 160, 133, 1),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    offset: Offset(0, 5),
+                    blurRadius: 5)
+              ]),
+          child: Row(children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Container(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  children: <Widget>[
+                    Text(this.title,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                        this.description.length >= 40
+                            ? this.description.substring(0, 40)
+                            : this.description,
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Text(
+                        this.date != null
+                        // Aqui no estoy seguro de esta parte
+                            ? this.date
+                            : this.date,
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Text(
+                        'Hora inicio ' + this.initialHour != null
+                        ? initialHour
+                        : '13:00' + '  - Hora final ' + this.finishHour != null
+                        ? finishHour
+                        : '15:00',
                         style: TextStyle(color: Colors.white, fontSize: 16)),
                   ],
                 ),
