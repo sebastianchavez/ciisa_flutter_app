@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ingenieria_flutter/helpers/show_alert.dart';
 
 /*****  Providers *****/
 import 'package:ingenieria_flutter/providers/push_notification_provider.dart';
+import 'package:ingenieria_flutter/services/news_service.dart';
+import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -20,6 +24,18 @@ class _HomeState extends State<HomePage> {
     super.initState();
     final pushProvider = new PushNotificationsProvider();
     pushProvider.initNotifications();
+    pushProvider.messages.listen((event) {
+      print('EVENT ${event}');
+      Toast.show('Nueva noticia', context, duration: 3, gravity: Toast.BOTTOM);
+      // final dynamic obj = data;
+      // if (obj['type'] == 'NEWS') {
+      // }
+      // final newsService = Provider.of<NewsService>(context, listen: true);
+      // newsService.getFirstNews().then((value) {
+      //   print('GET NOTICIAS OK');
+      //   newsService.listNews = value.data;
+      // });
+    });
   }
 
   final Widget svg = SvgPicture.asset(
@@ -52,6 +68,8 @@ class _HomeState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context, listen: false);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(39, 174, 96, 1),
@@ -79,15 +97,40 @@ class _HomeState extends State<HomePage> {
             )
           ],
         ),
-        body: SafeArea(
-            child: Container(
-          color: Color.fromRGBO(236, 240, 241, 1),
-          padding: EdgeInsets.only(left: 20, right: 20, top: 30),
-          child: Center(
-              child: Column(
-            children: <Widget>[_Banner(), _News(), _News()],
-          )),
-        )),
+        body: FutureBuilder(
+          builder: (context, snapshot) {
+            return Container(
+                color: Color.fromRGBO(236, 240, 241, 1),
+                padding: EdgeInsets.only(left: 20, right: 20, top: 30),
+                child: Center(
+                  child: newsService.listNews.length > 0
+                      ? RefreshIndicator(
+                          child: ListView.builder(
+                              itemCount: newsService.listNews.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(children: [
+                                  _News(
+                                      title: newsService.listNews[index]
+                                          ["title"],
+                                      description: newsService.listNews[index]
+                                          ["description"],
+                                      image: newsService.listNews[index]
+                                          ["image"],
+                                      data: newsService.listNews[index]),
+                                  SizedBox(height: 20)
+                                ]);
+                              }),
+                          onRefresh: () async {
+                            final resp = await newsService.getFirstNews();
+                            setState(() {
+                              newsService.listNews = resp.data;
+                            });
+                          },
+                        )
+                      : Text('No existen noticias'),
+                ));
+          },
+        ),
         bottomSheet: Container(
             height: 55,
             color: Color.fromRGBO(39, 174, 96, 1),
@@ -181,54 +224,104 @@ class _Banner extends StatelessWidget {
   }
 }
 
-class _News extends StatelessWidget {
-  const _News({Key key}) : super(key: key);
+class _NewsList extends StatelessWidget {
+  const _NewsList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.only(left: 10, right: 10),
-      decoration: BoxDecoration(
-          color: Color.fromRGBO(22, 160, 133, 1),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: Offset(0, 5),
-                blurRadius: 5)
-          ]),
-      child: Row(children: <Widget>[
-        Expanded(
-            child: Container(
-          height: 80,
-          width: 30,
+    // final newsService = Provider.of<NewsService>(context, listen: false);
+
+    // return newsService.listNews.length > 0
+    //     ? RefreshIndicator(
+    //         child: ListView.builder(
+    //             itemCount: newsService.listNews.length,
+    //             itemBuilder: (BuildContext context, int index) {
+    //               return Column(children: [
+    //                 _News(
+    //                     title: newsService.listNews[index]["title"],
+    //                     description: newsService.listNews[index]["description"],
+    //                     image: newsService.listNews[index]["image"],
+    //                     data: newsService.listNews[index]),
+    //                 SizedBox(height: 20)
+    //               ]);
+    //             }),
+    //         onRefresh: () async {
+    //           final resp = await newsService.getFirstNews();
+    //           newsService.listNews = resp.data;
+    //         },
+    //       )
+    //     : Text('No existen noticias');
+  }
+}
+
+class _News extends StatelessWidget {
+  final String title;
+  final String description;
+  final String image;
+  final data;
+
+  const _News(
+      {Key key,
+      @required this.title,
+      @required this.description,
+      @required this.image,
+      @required this.data})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context);
+    return RaisedButton(
+        onPressed: () {
+          newsService.news = this.data;
+          Navigator.pushNamed(context, '/detail');
+        },
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Container(
+          height: 100,
+          padding: EdgeInsets.only(left: 10, right: 10),
           decoration: BoxDecoration(
+              color: Color.fromRGBO(22, 160, 133, 1),
               borderRadius: BorderRadius.circular(15),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/imgs/banner.jpg'))),
-          child: Center(),
-        )),
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: EdgeInsets.only(top: 20),
-            child: Column(
-              children: <Widget>[
-                Text('Titulo de noticia',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold)),
-                Text('Descripcion de noticia',
-                    style: TextStyle(color: Colors.white, fontSize: 16)),
-              ],
-            ),
-          ),
-        )
-      ]),
-    );
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    offset: Offset(0, 5),
+                    blurRadius: 5)
+              ]),
+          child: Row(children: <Widget>[
+            Expanded(
+                child: Container(
+              height: 80,
+              width: 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(this.image))),
+              child: Center(),
+            )),
+            Expanded(
+              flex: 2,
+              child: Container(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  children: <Widget>[
+                    Text(this.title,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                        this.description.length >= 40
+                            ? this.description.substring(0, 40)
+                            : this.description,
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                  ],
+                ),
+              ),
+            )
+          ]),
+        ));
   }
 }

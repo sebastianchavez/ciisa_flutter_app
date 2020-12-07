@@ -7,6 +7,7 @@ import 'package:ingenieria_flutter/helpers/show_alert.dart';
 
 /*****  Providers *****/
 import 'package:ingenieria_flutter/providers/push_notification_provider.dart';
+import 'package:ingenieria_flutter/services/news_service.dart';
 import 'package:ingenieria_flutter/widgets/label_error.dart';
 import 'package:provider/provider.dart';
 
@@ -76,6 +77,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final newsService = Provider.of<NewsService>(context);
 
     validateRut(String value) {
       int rutNumbers = int.parse(value.substring(0, value.length - 1));
@@ -148,7 +150,10 @@ class __FormState extends State<_Form> {
                             await authService.login(rut, passwordCtrl.text);
                         print('response: ${response}');
                         if (response.ok) {
-                          showAlert(context, 'Autenticado', response.message);
+                          final resp = await newsService.getFirstNews();
+                          newsService.listNews = resp.data;
+                          // showAlert(context, 'Autenticado', response.message);
+
                           Navigator.pushReplacementNamed(context, '/home');
                         } else {
                           String message = response.message.length > 0
@@ -160,9 +165,9 @@ class __FormState extends State<_Form> {
                       }
                     } catch (e) {
                       print('catch error: ${e}');
-                      String message = e.message
-                          ? e.message
-                          : 'Existen problemas, intentar más tarde';
+                      String message = 'Existen problemas, intentar más tarde';
+                      // ? e.message
+                      // : 'Existen problemas, intentar más tarde';
                       showAlert(context, 'Error en autenticación', message);
                     }
                   },

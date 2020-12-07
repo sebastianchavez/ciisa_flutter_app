@@ -45,6 +45,12 @@ class AuthService with ChangeNotifier {
     return token;
   }
 
+  static Future<String> getUser() async {
+    final _storage = new FlutterSecureStorage();
+    final user = await _storage.read(key: 'currentUser');
+    return user;
+  }
+
   static Future<void> deleteToken() async {
     final _storage = new FlutterSecureStorage();
     await _storage.delete(key: 'token');
@@ -110,6 +116,13 @@ class AuthService with ChangeNotifier {
   }
 
   Future _saveUser(User user) async {
-    await _storage.write(key: 'currentUser', value: user.toString());
+    final value = {
+      "id": user.id,
+      "name": user.name,
+      "lastname": user.lastname,
+      "email": user.email,
+      "": user.profileImage
+    };
+    await _storage.write(key: 'currentUser', value: value.toString());
   }
 }

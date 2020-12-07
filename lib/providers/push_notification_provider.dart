@@ -16,8 +16,6 @@ class PushNotificationsProvider {
     _firebaseMessaging.getToken().then((token) {
       print("===== FCM Token =====");
       this._storage.write(key: 'firebaseToken', value: token);
-      print(token);
-      // TODO: Guardar token en local para usar en caso de autenticar
     });
 
     _firebaseMessaging.configure(onMessage: (info) {
@@ -26,7 +24,7 @@ class PushNotificationsProvider {
 
       String argument = 'no-data';
       if (Platform.isAndroid) {
-        argument = info['data']['comida'] ?? 'no-data';
+        argument = info['data'] ?? 'no-data';
       }
 
       print(argument);

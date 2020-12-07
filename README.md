@@ -1,16 +1,46 @@
-# ingenieria_flutter
+# CIISA App
 
-A new Flutter project.
+Proyecto Backend con NodeJS para Instituto CIISA el cual contiene la lógica de negocio, notificaciones push, conexión con AWS
 
-## Getting Started
+## Comenzando 🚀
 
-This project is a starting point for a Flutter application.
++ [Descargar desde github](https://github.com/sebastianchavez/ciisa_flutter_app.git) 
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Pre-requisitos 📋
+Es necesario tener instalado el SDK de Flutter, Android Studio
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Para despliegue de aplicación es necesario ...
+
+
+### Instalación 🔧
+
+Una vez instalado ...
+
+
+## Despliegue 📦
+
+Para despliegue de la aplicación para conceptos de pruebas o desarrollo ejecutar comandos
+
+
+Para producción ejecutar
+
+
+## Construido con 🛠️
+
+* [Flutter](https://flutter.dev/) - El framework para construcción de App
+* [Dart](https://dart.dev/) - Lenguaje de programación
+
+## Versionado 📌
+
+Usamos [GIT](https://git-scm.com/) para el versionado. Para todas los logs disponibles de los avances, mira los [commits en este repositorio](https://github.com/sebastianchavez/ciisa_flutter_app/commits).
+
+## Desarrolladores ✒️
+
+* **Sebastián Chavez** - [sebastianchavez](https://github.com/sebastianchavez)
+* **Sebastián Cornejos** - [sebastiancornejos](https://github.com/SebastianCSilva)
+
+
+## Licencia 📄
+
+Este proyecto está bajo la Licencia (ISC)
