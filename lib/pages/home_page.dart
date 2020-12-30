@@ -304,7 +304,7 @@ class _News extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 20, left: 20),
                 child: Column(
                   children: <Widget>[
                     Text(this.title,

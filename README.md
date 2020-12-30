@@ -1,6 +1,6 @@
 # CIISA App
 
-Proyecto Backend con NodeJS para Instituto CIISA el cual contiene la lógica de negocio, notificaciones push, conexión con AWS
+Proyecto App Mobile con Flutter para Instituto CIISA el cual contiene 
 
 ## Comenzando 🚀
 
@@ -10,7 +10,7 @@ Proyecto Backend con NodeJS para Instituto CIISA el cual contiene la lógica de 
 ### Pre-requisitos 📋
 Es necesario tener instalado el SDK de Flutter, Android Studio
 
-Para despliegue de aplicación es necesario ...
+Para despliegue de aplicación es necesario
 
 
 ### Instalación 🔧
@@ -33,12 +33,7 @@ Para producción ejecutar
 
 ## Versionado 📌
 
-Usamos [GIT](https://git-scm.com/) para el versionado. Para todas los logs disponibles de los avances, mira los [commits en este repositorio](https://github.com/sebastianchavez/ciisa_flutter_app/commits).
-
-## Desarrolladores ✒️
-
-* **Sebastián Chavez** - [sebastianchavez](https://github.com/sebastianchavez)
-* **Sebastián Cornejos** - [sebastiancornejos](https://github.com/SebastianCSilva)
+Usamos [GIT](https://git-scm.com/) para el versionado [en este repositorio](https://github.com/sebastianchavez/ciisa_flutter_app).
 
 
 ## Licencia 📄
